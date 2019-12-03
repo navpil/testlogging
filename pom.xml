@@ -8,7 +8,6 @@
     <artifactId>testlogging</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>apachecommons</module>
         <module>impls</module>
         <module>ourlib</module>
         <module>webproj</module>

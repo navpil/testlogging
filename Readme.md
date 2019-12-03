@@ -126,9 +126,11 @@ Read [which jars](https://logging.apache.org/log4j/2.0/faq.html#which_jars)
 
 All bridges, except `log4j-to-slf4j`, provided by Log4j2 expect you to log to log4j2-core
 
-**JUL** (`log4j-jul`) has to be configured manually through the System property
+**JUL** (`log4j-jul`) has to be configured manually through the System property before JUL is ever used
 
     System.setProperty("java.util.logging.manager", "org.apache.logging.log4j.jul.LogManager");
+    
+JUL will use this property in static initializer block.
     
 **JCL** (`log4j-jcl`) will find log4j2 implementation through the SPI (or something similar).
 
@@ -156,9 +158,11 @@ Logback is natively supported by **Slf4j**
 
     SLF4JBridgeHandler.install();
     
-And outputs both the Native JUL logging and Slf4j logging.
+and outputs both the Native JUL logging and Slf4j logging.
 
-Maybe JUL logging should be silenced somehow?
+This is because in the background `SLF4JBridgeHandler.install()` does this:
+
+    LogManager.getLogManager().getLogger("").addHandler(new SLF4JBridgeHandler());
 
 There is a fix though, used by profile `-Plogback-fixed`:
 
@@ -190,6 +194,8 @@ Use `slf4j-log412` to use log4j
  
 ## Log4j2 Configuration description
 
+Do not put logging configuration into library's classpath, because it may conflict with others. 
+ 
     TODO
 
 ## ELK Stack
@@ -214,6 +220,9 @@ Therefore `jul-to-slf4j` is used in the `-Plog4j2-webapp` example, which works b
     > copy target/webproj.war %CATALINA_BASE%/webapps
 
     URL: http://localhost:8080/webproj/
+    
+See the `webproj/resources/webapp/WEB-INF/log4j.xml` for configuration of logging into file.
+    
 ## Sources
 
 [Common logging with JUL](http://javarushi.blogspot.com/2012/04/how-to-use-apache-commons-logging-with.html)

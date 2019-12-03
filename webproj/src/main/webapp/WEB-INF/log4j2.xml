@@ -5,10 +5,19 @@
             <PatternLayout
                     pattern="[LOG4J2-OVERWRITTEN][%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
         </Console>
+
+        <RollingFile  name="ROLLING_FILE" fileName="${sys:catalina.base}/logs/log4joverrwritten.log" filePattern="${sys:catalina.base}/logs/trygqueue-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="[%d] [%X{uuid}] %5p [%t] (%F:%L) - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy />
+        </RollingFile >
     </Appenders>
     <Loggers>
         <Root level="trace" additivity="false">
             <AppenderRef ref="console" />
+            <AppenderRef ref="ROLLING_FILE" />
         </Root>
     </Loggers>
 </Configuration>
