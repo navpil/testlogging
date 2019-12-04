@@ -210,9 +210,9 @@ Use `slf4j-log412` to use log4j
  
 ## Log4j2 Configuration description
 
-Do not put logging configuration into library's classpath, because it may conflict with others. 
- 
-    TODO
+ - Loggers - they will accept logging messages
+ - Appenders - they will output logging messages
+ - Filters - optional, will filter messages by some parameters 
 
 ## ELK Stack
 
@@ -269,6 +269,8 @@ The following log files are provided by Tomcat by default:
 Do not put logging implementation/configuration into a library which is used by others.
 
 Do not forget to close MDC. 
+
+Use parametrized logging or lambda syntax to avoid `LOGGER.isDebugEnabled()` 
 
 ### Usage of logging levels
 
