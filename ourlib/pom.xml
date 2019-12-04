@@ -377,6 +377,26 @@
             </dependencies>
         </profile>
 
+        <profile>
+            <id>geek-fun-2</id>
+            <dependencies>
+                <!-- Following two libraries are incompatible -->
+
+                <!--JCL bridge to Slf4j -->
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </dependency>
+
+                <!--Slf4j uses JCL as implementation-->
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jcl</artifactId>
+                    <version>${slf4j.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
 
     </profiles>
 

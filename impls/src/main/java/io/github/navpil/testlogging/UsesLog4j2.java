@@ -5,9 +5,14 @@ import org.apache.logging.log4j.Logger;
 
 public class UsesLog4j2 {
 
-    public void doSomething() {
-        Logger logger = LogManager.getLogger(UsesLog4j2.class);
-        logger.warn("I'm Log4j2 Warning");
+    private static final Logger LOGGER = LogManager.getLogger(UsesLog4j2.class);
+
+    public void doWithError() {
+        LOGGER.error("I'm Log4j2 Error");
+    }
+
+    public void doWithWarn() {
+        LOGGER.warn("I'm Log4j2 Warning");
     }
 
 }

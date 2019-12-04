@@ -14,7 +14,7 @@ import java.util.logging.LogManager;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    static {
         //This is only needed for JUL configuration
         ClassLoader classLoader = Main.class.getClassLoader();
         if (classLoader.getResourceAsStream(".use-log4j2-jul") != null) {
@@ -25,14 +25,32 @@ public class Main {
             reflectivelyInstall();
         } else if (classLoader.getResourceAsStream("jul.properties") != null) {
             InputStream resourceAsStream = classLoader.getResourceAsStream("jul.properties");
-            LogManager.getLogManager().readConfiguration(resourceAsStream);
+            try {
+                LogManager.getLogManager().readConfiguration(resourceAsStream);
+            } catch (IOException e) {
+                System.out.println("Problem happened during reading jul.properties");
+            }
         }
+    }
 
-        callLog("JUL", new UsesJul()::doSomething);
-        callLog("Log4j", new UsesLog4j()::doSomething);
-        callLog("Log4j2", new UsesLog4j2()::doSomething);
-        callLog("JCL", new UsesApacheCommons()::doSomething);
-        callLog("Slf4j", new UsesSlf4j()::doSomething);
+    public static void callWithError() throws InterruptedException {
+        callLog("JUL", new UsesJul()::doWithError);
+        callLog("Log4j", new UsesLog4j()::doWithError);
+        //Log4j2 does eager initialization, so we get an error while LOGGER is created as a static field
+        callLog("Log4j2", () -> new UsesLog4j2().doWithError());
+        callLog("JCL", new UsesApacheCommons()::doWithError);
+        //Slf4j does eager initialization, so we get an error while LOGGER is created as a static field
+        callLog("Slf4j", () -> new UsesSlf4j().doWithError());
+    }
+
+    public static void callWithWarning() throws InterruptedException {
+        callLog("JUL", new UsesJul()::doWithWarn);
+        callLog("Log4j", new UsesLog4j()::doWithWarn);
+        //Log4j2 does eager initialization, so we get an error while LOGGER is created as a static field
+        callLog("Log4j2", () -> new UsesLog4j2().doWithWarn());
+        callLog("JCL", new UsesApacheCommons()::doWithWarn);
+        //Slf4j does eager initialization, so we get an error while LOGGER is created as a static field
+        callLog("Slf4j", () -> new UsesSlf4j().doWithWarn());
     }
 
     private static void reflectivelyInstall() {
@@ -64,6 +82,7 @@ public class Main {
         Thread.sleep(100);
         runnable.run();
         Thread.sleep(100);
+        System.out.println();
 
     }
 

@@ -13,9 +13,13 @@
             </Policies>
             <DefaultRolloverStrategy />
         </RollingFile >
+        <Servlet name="Servlet">
+            <PatternLayout pattern="%m%n%ex{none}"/>
+        </Servlet>
     </Appenders>
     <Loggers>
         <Root level="trace" additivity="false">
+            <AppenderRef ref="Servlet" />
             <AppenderRef ref="console" />
             <AppenderRef ref="ROLLING_FILE" />
         </Root>

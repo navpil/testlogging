@@ -4,10 +4,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class UsesApacheCommons {
+    private static final Log LOG = LogFactory.getLog(UsesApacheCommons.class);
 
-    public void doSomething() {
-        Log log = LogFactory.getLog(getClass());
-        log.warn("I'm Apache Commons Logging warning");
+    public void doWithError() {
+        LOG.error("I'm Apache Commons Logging error");
+    }
+
+    public void doWithWarn() {
+        LOG.warn("I'm Apache Commons Logging warning");
     }
 
 }

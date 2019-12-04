@@ -20,7 +20,7 @@ public class DefaultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LOG.error("This will be logged");
         try {
-            Main.main(null);
+            Main.callWithWarning();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -5,8 +5,13 @@ import org.slf4j.LoggerFactory;
 
 public class UsesSlf4j {
 
-    public void doSomething() {
-        Logger logger = LoggerFactory.getLogger(UsesSlf4j.class);
-        logger.warn("I'm SLF4j warning");
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsesSlf4j.class);
+
+    public void doWithError() {
+        LOGGER.error("I'm SLF4j error");
+    }
+
+    public void doWithWarn() {
+        LOGGER.warn("I'm SLF4j warning");
     }
 }
