@@ -11,4 +11,8 @@
     <root level="debug">
         <appender-ref ref="STDOUT" />
     </root>
+
+    <!-- Special loggers -->
+    <logger name="io.github.navpil" level="OFF"/>
+    <logger name="io.github.navpil.testlogging" level="DEBUG"/>
 </configuration>
