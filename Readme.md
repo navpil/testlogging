@@ -216,8 +216,24 @@ Use `slf4j-log412` to use log4j
 
 ## ELK Stack
 
-    TODO
-    
+ - ElasticSearch 
+    - DB which supports fulltext search and document based approach (similar to MongoDB or CouchDB)
+    - Indexes data
+    - Can transform data via pipeline on receive
+    - Can reindex data
+    - Should not be used as primary data source
+ - Kibana 
+    - visualization tool for ElasticSearch
+    - calls ElasticSearch API to show data
+    - Grafana is another tool.
+ - Logstash
+    - Inputs - various types of inputs (http, txt etc)
+    - Filter - filters and transforms data
+    - Output - varous types of outputs (elastic search, text file)
+ - Beats
+    - Monitors some source
+    - Sends events to ElasticSearch
+
 ## Logging in Tomcat
 
 It is possible to make Tomcat use log4j2 instead of JUL by default for logging.
