@@ -286,7 +286,19 @@ Do not put logging implementation/configuration into a library which is used by 
 
 Do not forget to close MDC. 
 
-Use parametrized logging or lambda syntax to avoid `LOGGER.isDebugEnabled()` 
+Use parametrized logging or lambda syntax to avoid `LOGGER.isDebugEnabled()`
+
+Read documentation of a logging framework before using it. Log4j2 in particular:
+
+ - Do not forget about including `log4j-web` dependency into web project to close logging gracefully
+ - Consider not using [Location information](https://logging.apache.org/log4j/2.x/manual/layouts.html#LocationInformation) 
+ in patterns for improved performance, which means avoiding:
+
+    - `%C` or `%class`
+    - `%F` or `%file`
+    - `%l` or `%location`
+    - `%L` or `%line`
+    - `%M` or `%method`
 
 ### Usage of logging levels
 
